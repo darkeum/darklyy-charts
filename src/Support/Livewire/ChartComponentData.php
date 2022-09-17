@@ -29,10 +29,11 @@ class ChartComponentData implements Arrayable
      * @param \Illuminate\Support\Collection $labels
      * @param \Illuminate\Support\Collection $datasets
      */
-    public function __construct(Collection $labels, Collection $datasets)
+    public function __construct(Collection $labels, Collection $datasets, $datasets_name = [])
     {
         $this->labels = $labels;
         $this->datasets = $datasets;
+        $this->datasets_name = $datasets_name;
     }
 
     /**
@@ -42,7 +43,8 @@ class ChartComponentData implements Arrayable
     {
         return [
             'labels'    => $this->labels,
-            'datasets'  => $this->datasets
+            'datasets'  => $this->datasets,
+            'datasets_name'  => $this->datasets_name,
         ];
     }
 
@@ -60,6 +62,14 @@ class ChartComponentData implements Arrayable
     public function labels(): Collection
     {
         return $this->labels;
+    }   
+    
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function datasets_name()
+    {
+        return $this->datasets_name;
     }
 
     /**

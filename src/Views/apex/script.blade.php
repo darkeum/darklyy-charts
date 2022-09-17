@@ -12,9 +12,12 @@
         window.{{ $chart->id }} = new ApexCharts(document.querySelector("#{{ $chart->id }}"), {
             {!! $chart->formatOptions(true, true) !!},
             series: data,
-            xaxis: {
-                categories: {!! $chart->formatLabels() !!}
-            }
+
+            @if (!isset($chart->options['xaxis']))
+                xaxis: {
+                    categories: {!! $chart->formatLabels() !!}
+                },
+            @endif
 
         });
         {{ $chart->id }}.render();
