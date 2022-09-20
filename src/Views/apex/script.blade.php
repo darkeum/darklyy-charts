@@ -14,9 +14,11 @@
             series: data,
 
             @if (!isset($chart->options['xaxis']))
-                xaxis: {
-                    categories: {!! $chart->formatLabels() !!}
-                },
+                @if ($chart->type != 'donut')
+                    xaxis: {
+                        categories: {!! $chart->formatLabels() !!}
+                    },
+                @endif
             @endif
 
         });

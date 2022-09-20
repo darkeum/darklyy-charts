@@ -46,7 +46,7 @@ class Chart extends BaseChart
      *
      * @return void
      */
-    public function formatDatasets()
+    public function formatDatasets($encode = false)
     {
         $datasets = Collection::make($this->datasets);
 

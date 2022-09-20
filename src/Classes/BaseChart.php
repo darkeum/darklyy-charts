@@ -23,6 +23,8 @@ class BaseChart
      */
     public $datasets = [];
 
+    public $encode_options = true;
+
     /**
      * Stores the dataset class to be used.
      *
@@ -277,6 +279,13 @@ class BaseChart
         return $this;
     }
 
+    public function encode_options(bool $encode_options)
+    {
+        $this->encode_options = $encode_options;
+
+        return $this;
+    }
+
     /**
      * Set the chart height.
      *
@@ -337,8 +346,11 @@ class BaseChart
         if (!$strict && count($this->options) === 0) {
             return '';
         }
-
-        $options = Encoder::encode($this->options);
+        if ($this->encode_options) {
+            $options = Encoder::encode($this->options);
+        } else {
+            $options = $this->options;
+        }
 
         return $noBraces ? substr($options, 1, -1) : $options;
     }
@@ -389,7 +401,7 @@ class BaseChart
      *
      * @return string
      */
-    public function formatDatasets()
+    public function formatDatasets($encode = true)
     {
         // This little boy was commented because it's not compatible
         // in laravel < 5.4

@@ -15,7 +15,7 @@ class Chart extends BaseChart
      *
      * @var object
      */
-    public $dataset = Dataset::class;
+    public $dataset = Dataset::class;    
 
     /**
      * Initiates the Chartjs Line Chart.
@@ -32,19 +32,28 @@ class Chart extends BaseChart
         return $this->options([]);
     }
 
-    public function formatDatasets()
+    public function formatDatasets($encode = true)
     {
         $result = [];
-        foreach ($this->datasets as $dataset) {
-            $new = [];
-            foreach ($dataset->values as $value) {
-                $new[] = $value;
+        if ($this->type == 'donut') {
+            foreach ($this->datasets as $dataset) {
+                foreach ($dataset->values as $value) {
+                    $result[] = $value;
+                }
             }
-            $result[] = [
-                'name' => $dataset->name,
-                'data' => $new,
-            ];           
+        } else {
+            foreach ($this->datasets as $dataset) {
+                $new = [];
+                foreach ($dataset->values as $value) {
+                    $new[] = $value;
+                }
+                $result[] = [
+                    'name' => $dataset->name,
+                    'data' => $new,
+                ];
+            }
         }
-        return json_encode($result);
+
+        return $encode ? json_encode($result) : $result;
     }
 }
