@@ -35,7 +35,7 @@ class Chart extends BaseChart
     public function formatDatasets($encode = true)
     {
         $result = [];
-        if ($this->type == 'donut') {
+        if ($this->type == 'donut' || $this->type == 'radialBar') {
             foreach ($this->datasets as $dataset) {
                 foreach ($dataset->values as $value) {
                     $result[] = $value;
